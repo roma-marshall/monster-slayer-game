@@ -16,7 +16,7 @@
       <button @click="monsterAttack">ATTACK</button>
       <button @click="magicAttack">MAGIC ATTACK</button>
       <button @click="heroHeal">HEAL</button>
-      <button>SURRENDER</button>
+      <button @click="surrender">SURRENDER</button>
     </section>
     <section id="log" class="container">
       <h2>Battle Log</h2>
@@ -44,22 +44,28 @@ export default {
       this.heroHealth -= attackValue
     },
     monsterAttack() {
+      this.currentRound++
       const attackValue = getRandomValue(5, 12)
       this.monsterHealth -= attackValue
       this.heroAttack()
     },
     magicAttack() {
+      this.currentRound++
       const attackValue = getRandomValue(13, 20)
       this.monsterHealth -= attackValue
       this.heroAttack()
     },
     heroHeal() {
+      this.currentRound++
       const healValue = getRandomValue(12, 25)
       if (this.heroHealth + healValue > 100)
         this.heroHealth = 100
       else
         this.heroHealth += healValue
       this.heroAttack()
+    },
+    surrender() {
+      this.heroHealth = 0
     }
   },
   computed: {
@@ -68,6 +74,20 @@ export default {
     },
     monsterBarStyle() {
       return {width: this.monsterHealth + '%'}
+    }
+  },
+  watch: {
+    heroHealth(value) {
+      if (value <= 0 && this.monsterHealth <= 0)
+        console.log('draw')
+      else if (value <= 0)
+        console.log('hero lost')
+    },
+    monsterHealth(value) {
+      if (value <= 0 && this.heroHealth <= 0)
+        console.log('draw')
+      else if (value <= 0)
+        console.log('monster dead')
     }
   }
 }
