@@ -20,7 +20,7 @@
     <section id="controls" v-else>
       <button @click="monsterAttack">ATTACK</button>
       <button @click="magicAttack" :disabled="magicAbility">MAGIC ATTACK</button>
-      <button @click="heroHeal">HEAL</button>
+      <button @click="heroHeal" :disabled="healAbility">HEAL</button>
       <button @click="surrender">SURRENDER</button>
     </section>
     <section id="log" class="container">
@@ -89,6 +89,12 @@ export default {
     },
     magicAbility() {
       return this.currentRound % 3
+    },
+    healAbility() {
+      if (this.currentRound % 3 && this.heroHealth < 50)
+        return false
+      else
+        return true
     }
   },
   watch: {
