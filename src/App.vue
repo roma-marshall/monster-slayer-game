@@ -91,10 +91,7 @@ export default {
       return this.currentRound % 3
     },
     healAbility() {
-      if (this.currentRound % 3 && this.heroHealth < 50)
-        return false
-      else
-        return true
+      return !(this.currentRound % 3 && this.heroHealth < 50);
     }
   },
   watch: {
