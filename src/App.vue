@@ -3,13 +3,13 @@
     <section id="monster" class="container">
       <h2>Monster Health</h2>
       <div class="healthbar">
-        <div class="healthbar__value" :style="{width: monsterHealth + '%'}"></div>
+        <div class="healthbar__value" :style="monsterBarStyle"></div>
       </div>
     </section>
     <section id="hero" class="container">
       <h2>Your Health</h2>
       <div class="healthbar">
-        <div class="healthbar__value" :style="{width: heroHealth + '%'}"></div>
+        <div class="healthbar__value" :style="heroBarStyle"></div>
       </div>
     </section>
     <section id="controls">
@@ -47,6 +47,14 @@ export default {
       const attackValue = getRandomValue(5, 12)
       this.monsterHealth -= attackValue
       this.heroAttack()
+    }
+  },
+  computed: {
+    heroBarStyle() {
+      return {width: this.heroHealth + '%'}
+    },
+    monsterBarStyle() {
+      return {width: this.monsterHealth + '%'}
     }
   }
 }
