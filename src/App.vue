@@ -88,7 +88,7 @@ export default {
       return {width: this.monsterHealth + '%'}
     },
     magicAbility() {
-      return this.currentRound % 3
+      return (this.currentRound % 3 || this.currentRound === 0)
     },
     healAbility() {
       return !(this.currentRound % 3 && this.heroHealth < 50);
