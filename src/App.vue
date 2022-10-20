@@ -14,7 +14,7 @@
     </section>
     <section id="controls">
       <button @click="monsterAttack">ATTACK</button>
-      <button>MAGIC ATTACK</button>
+      <button @click="magicAttack">MAGIC ATTACK</button>
       <button>HEAL</button>
       <button>SURRENDER</button>
     </section>
@@ -45,6 +45,11 @@ export default {
     },
     monsterAttack() {
       const attackValue = getRandomValue(5, 12)
+      this.monsterHealth -= attackValue
+      this.heroAttack()
+    },
+    magicAttack() {
+      const attackValue = getRandomValue(13, 20)
       this.monsterHealth -= attackValue
       this.heroAttack()
     }
