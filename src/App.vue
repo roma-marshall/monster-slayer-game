@@ -1,17 +1,47 @@
 <template>
-  <div>
-    <h1>monster-slayer-game</h1>
+  <div id="game">
+    <section id="monster" class="container">
+      <h2>Monster Health</h2>
+      <div class="healthbar">
+        <div class="healthbar__value"></div>
+      </div>
+    </section>
+    <section id="hero" class="container">
+      <h2>Your Health</h2>
+      <div class="healthbar">
+        <div class="healthbar__value"></div>
+      </div>
+    </section>
+    <section id="controls">
+      <button>ATTACK</button>
+      <button>MAGIC ATTACK</button>
+      <button>HEAL</button>
+      <button>SURRENDER</button>
+    </section>
+    <section id="log" class="container">
+      <h2>Battle Log</h2>
+      <ul></ul>
+    </section>
   </div>
 </template>
 
 <script>
 
 export default {
+  data() {
+    return {
+      heroHealth: 100,
+      monsterHealth: 100,
+      currentRound: 0,
+    }
+  },
+  methods: {
 
+  }
 }
 </script>
 
-<style>
+<style scoped>
 * {
   box-sizing: border-box;
 }
@@ -62,7 +92,7 @@ section {
 }
 
 #monster h2,
-#player h2 {
+#hero h2 {
   margin: 0.25rem;
 }
 
@@ -116,7 +146,7 @@ button:disabled {
   margin: 0.5rem 0;
 }
 
-.log--player {
+.log--hero {
   color: #7700ff;
 }
 
