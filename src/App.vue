@@ -15,7 +15,7 @@
     <section class="container" v-if="winner">
       <h2>Game Over!</h2>
       <h3>{{ winner }}</h3>
-      <button @click="retryGame">Retry Game</button>
+      <button @click="retryGame">RETRY GAME</button>
     </section>
     <section id="controls" v-else>
       <button @click="monsterAttack">ATTACK</button>
