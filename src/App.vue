@@ -82,9 +82,13 @@ export default {
   },
   computed: {
     heroBarStyle() {
+      if (this.heroHealth < 0)
+        return {width: '0%'}
       return {width: this.heroHealth + '%'}
     },
     monsterBarStyle() {
+      if (this.monsterHealth < 0)
+        return {width: '0%'}
       return {width: this.monsterHealth + '%'}
     },
     magicAbility() {
