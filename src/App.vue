@@ -3,17 +3,17 @@
     <section id="monster" class="container">
       <h2>Monster Health</h2>
       <div class="healthbar">
-        <div class="healthbar__value"></div>
+        <div class="healthbar__value" :style="{width: monsterHealth + '%'}"></div>
       </div>
     </section>
     <section id="hero" class="container">
       <h2>Your Health</h2>
       <div class="healthbar">
-        <div class="healthbar__value"></div>
+        <div class="healthbar__value" :style="{width: heroHealth + '%'}"></div>
       </div>
     </section>
     <section id="controls">
-      <button>ATTACK</button>
+      <button @click="monsterAttack">ATTACK</button>
       <button>MAGIC ATTACK</button>
       <button>HEAL</button>
       <button>SURRENDER</button>
@@ -26,6 +26,9 @@
 </template>
 
 <script>
+function getRandomValue(min, max) {
+  return Math.floor(Math.random() * (max - min)) + min
+}
 
 export default {
   data() {
@@ -36,7 +39,15 @@ export default {
     }
   },
   methods: {
-
+    heroAttack() {
+      const attackValue = getRandomValue(8, 15)
+      this.heroHealth -= attackValue
+    },
+    monsterAttack() {
+      const attackValue = getRandomValue(5, 12)
+      this.monsterHealth -= attackValue
+      this.heroAttack()
+    }
   }
 }
 </script>
