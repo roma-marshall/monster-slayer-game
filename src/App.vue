@@ -15,7 +15,7 @@
     <section id="controls">
       <button @click="monsterAttack">ATTACK</button>
       <button @click="magicAttack">MAGIC ATTACK</button>
-      <button>HEAL</button>
+      <button @click="heroHeal">HEAL</button>
       <button>SURRENDER</button>
     </section>
     <section id="log" class="container">
@@ -51,6 +51,14 @@ export default {
     magicAttack() {
       const attackValue = getRandomValue(13, 20)
       this.monsterHealth -= attackValue
+      this.heroAttack()
+    },
+    heroHeal() {
+      const healValue = getRandomValue(12, 25)
+      if (this.heroHealth + healValue > 100)
+        this.heroHealth = 100
+      else
+        this.heroHealth += healValue
       this.heroAttack()
     }
   },
