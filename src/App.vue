@@ -12,7 +12,12 @@
         <div class="healthbar__value" :style="heroBarStyle"></div>
       </div>
     </section>
-    <section id="controls">
+    <section class="container" v-if="winner">
+      <h2>Game Over!</h2>
+      <h3>{{ winner }}</h3>
+      <button @click="retryGame">Retry Game</button>
+    </section>
+    <section id="controls" v-else>
       <button @click="monsterAttack">ATTACK</button>
       <button @click="magicAttack">MAGIC ATTACK</button>
       <button @click="heroHeal">HEAL</button>
@@ -36,6 +41,7 @@ export default {
       heroHealth: 100,
       monsterHealth: 100,
       currentRound: 0,
+      winner: null
     }
   },
   methods: {
@@ -66,6 +72,9 @@ export default {
     },
     surrender() {
       this.heroHealth = 0
+    },
+    retryGame() {
+
     }
   },
   computed: {
@@ -79,15 +88,15 @@ export default {
   watch: {
     heroHealth(value) {
       if (value <= 0 && this.monsterHealth <= 0)
-        console.log('draw')
+        this.winner = 'A draw'
       else if (value <= 0)
-        console.log('hero lost')
+        this.winner = 'The Hero is dead! Monsters destroyed the village...'
     },
     monsterHealth(value) {
       if (value <= 0 && this.heroHealth <= 0)
-        console.log('draw')
+        this.winner = 'A draw'
       else if (value <= 0)
-        console.log('monster dead')
+        this.winner = 'No monster survived... The Hero won!'
     }
   }
 }
