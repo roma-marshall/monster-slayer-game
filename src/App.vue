@@ -74,7 +74,10 @@ export default {
       this.heroHealth = 0
     },
     retryGame() {
-
+      this.heroHealth = 100
+      this.monsterHealth = 100
+      this.currentRound = 0
+      this.winner = null
     }
   },
   computed: {
