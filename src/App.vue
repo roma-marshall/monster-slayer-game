@@ -26,8 +26,19 @@
     <section id="log" class="container">
       <h2>Battle Log</h2>
       <ul>
-        <li v-for="log in logMessages" :key="log">
-          {{ log.actionBy }} - {{ log.actionType }} - {{ log.actionValue }}
+        <li v-for="log in logs" :key="log">
+          <span :class="{'log--hero': log.actionBy === 'hero', 'log--monster': log.actionBy === 'monster'}">
+            {{ log.actionBy === 'hero' ? 'Hero' : 'Monster' }}
+          </span
+          >
+          <span v-if="log.actionType === 'heal'">
+              heals himself for
+              <span class="log--heal">{{ log.actionValue }}</span>
+          </span>
+          <span v-else>
+              attacks and hits
+              <span class="log--damage">{{ log.actionValue }}</span>
+            </span>
         </li>
       </ul>
     </section>
@@ -46,7 +57,7 @@ export default {
       monsterHealth: 100,
       currentRound: 0,
       winner: null,
-      logMessages: []
+      logs: []
     }
   },
   methods: {
@@ -87,10 +98,10 @@ export default {
       this.monsterHealth = 100
       this.currentRound = 0
       this.winner = null
-      this.logMessages = []
+      this.logs = []
     },
     addLogMessage(who, what, value) {
-      this.logMessages.unshift({
+      this.logs.unshift({
         actionBy: who,
         actionType: what,
         actionValue: value
