@@ -19,7 +19,7 @@
     </section>
     <section id="controls" v-else>
       <button @click="monsterAttack">ATTACK</button>
-      <button @click="magicAttack">MAGIC ATTACK</button>
+      <button @click="magicAttack" :disabled="magicAbility">MAGIC ATTACK</button>
       <button @click="heroHeal">HEAL</button>
       <button @click="surrender">SURRENDER</button>
     </section>
@@ -86,6 +86,9 @@ export default {
     },
     monsterBarStyle() {
       return {width: this.monsterHealth + '%'}
+    },
+    magicAbility() {
+      return this.currentRound % 3
     }
   },
   watch: {
