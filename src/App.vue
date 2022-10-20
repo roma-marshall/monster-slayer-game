@@ -25,7 +25,11 @@
     </section>
     <section id="log" class="container">
       <h2>Battle Log</h2>
-      <ul></ul>
+      <ul>
+        <li v-for="log in logMessages" :key="log">
+          {{ log.actionBy }} - {{ log.actionType }} - {{ log.actionValue }}
+        </li>
+      </ul>
     </section>
   </div>
 </template>
@@ -41,24 +45,28 @@ export default {
       heroHealth: 100,
       monsterHealth: 100,
       currentRound: 0,
-      winner: null
+      winner: null,
+      logMessages: []
     }
   },
   methods: {
     heroAttack() {
       const attackValue = getRandomValue(8, 15)
       this.heroHealth -= attackValue
+      this.addLogMessage('monster', 'attack', attackValue)
     },
     monsterAttack() {
       this.currentRound++
       const attackValue = getRandomValue(5, 12)
       this.monsterHealth -= attackValue
+      this.addLogMessage('hero', 'attack', attackValue)
       this.heroAttack()
     },
     magicAttack() {
       this.currentRound++
       const attackValue = getRandomValue(13, 20)
       this.monsterHealth -= attackValue
+      this.addLogMessage('hero', 'magic attack', attackValue)
       this.heroAttack()
     },
     heroHeal() {
@@ -68,6 +76,7 @@ export default {
         this.heroHealth = 100
       else
         this.heroHealth += healValue
+      this.addLogMessage('hero', 'heal', healValue)
       this.heroAttack()
     },
     surrender() {
@@ -78,6 +87,14 @@ export default {
       this.monsterHealth = 100
       this.currentRound = 0
       this.winner = null
+      this.logMessages = []
+    },
+    addLogMessage(who, what, value) {
+      this.logMessages.unshift({
+        actionBy: who,
+        actionType: what,
+        actionValue: value
+      })
     }
   },
   computed: {
@@ -103,7 +120,7 @@ export default {
       if (value <= 0 && this.monsterHealth <= 0)
         this.winner = 'A draw'
       else if (value <= 0)
-        this.winner = 'The Hero is dead! Monsters destroyed the village...'
+        this.winner = 'The Hero is dead! Monsters destroyed the Village...'
     },
     monsterHealth(value) {
       if (value <= 0 && this.heroHealth <= 0)
